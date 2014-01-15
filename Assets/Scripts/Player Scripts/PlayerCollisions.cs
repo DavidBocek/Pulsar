@@ -35,6 +35,11 @@ public class PlayerCollisions : MonoBehaviour {
 		}
 	}
 
+	void OnPulseHit(int type){
+		//every pulsing planet kills the player (for now)
+		Kill();
+	}
+
 	void Kill(){
 		//explosion sound play
 		//play death visual effect
