@@ -8,9 +8,11 @@ public class PlayerCollisions : MonoBehaviour {
 
 	private float respawnTimer;
 	private bool isRespawning = false;
+	private LevelManager levelManager;
 
 	void Awake(){
 		respawnTimer = respawnTime;
+		levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
 	}
 
 	void Update(){
@@ -47,6 +49,7 @@ public class PlayerCollisions : MonoBehaviour {
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 		gameObject.GetComponent<CircleCollider2D>().enabled = false;
 		gameObject.GetComponent<PlayerOrthogonalMovement>().enabled = false;
+		levelManager.lives -= 1;
 	}
 
 	void Respawn(){

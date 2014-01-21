@@ -10,6 +10,7 @@ public class Planet : MonoBehaviour {
 
 	private float tempPulseTimer;
 	private AudioSource pulseSound;
+	private float initialScale;
 
 	private float dt;
 
@@ -18,6 +19,7 @@ public class Planet : MonoBehaviour {
 		pulseSound = GetComponent<AudioSource>();
 		tempPulseTimer = tempPulseDelay;
 		pulseObjectTrans.gameObject.GetComponent<MeshRenderer>().enabled = false;
+		initialScale = pulseObjectTrans.localScale.x;
 	}
 	
 	// Update is called once per frame
@@ -42,8 +44,8 @@ public class Planet : MonoBehaviour {
 			c.a = t;
 			pulseObjectTrans.gameObject.GetComponent<MeshRenderer>().material.color = c;
 
-			newScale = Mathf.Lerp(.5f,radius,t);
-			pulseObjectTrans.localScale = new Vector3(newScale,newScale,.25f);
+			newScale = Mathf.Lerp(initialScale,radius,t);
+			pulseObjectTrans.localScale = new Vector3(newScale,newScale,.1f);
 			t += dt/pulseTime;
 			yield return null;
 		}
@@ -52,8 +54,8 @@ public class Planet : MonoBehaviour {
 			c.a = t;
 			pulseObjectTrans.gameObject.GetComponent<MeshRenderer>().material.color = c;
 
-			newScale = Mathf.Lerp (.5f,radius, t);
-			pulseObjectTrans.localScale = new Vector3(newScale,newScale,.25f);
+			newScale = Mathf.Lerp (initialScale,radius, t);
+			pulseObjectTrans.localScale = new Vector3(newScale,newScale,.1f);
 			t -= dt/pulseTime;
 			yield return null;
 		}
