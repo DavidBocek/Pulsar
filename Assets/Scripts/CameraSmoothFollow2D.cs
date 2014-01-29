@@ -8,7 +8,7 @@ public class CameraSmoothFollow2D : MonoBehaviour {
 	public float dampTime = 0.15f;
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -19,6 +19,8 @@ public class CameraSmoothFollow2D : MonoBehaviour {
 			Vector3 destination = transform.position + delta;
 			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 		}
+
+		Messenger.Broadcast<Vector2>("parallaxUpdate",new Vector2(transform.position.x,transform.position.y));
 
 		/*Vector3 newPos = transform.position;
 		if (transform.position.x+400f > rightBound){

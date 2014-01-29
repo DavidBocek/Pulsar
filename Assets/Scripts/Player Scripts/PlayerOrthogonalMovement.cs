@@ -4,15 +4,18 @@ using System.Collections;
 public class PlayerOrthogonalMovement : MonoBehaviour {
 
 	public float speed;
+	public float rotationSpeed;
 
 	private Vector2 velocity;
 	private Rigidbody2D rb;
+	private ParticleSystem exghaustParticles;
 
 	private float dt;
 
 	// Use this for initialization
 	void Awake () {
 		rb = GetComponent<Rigidbody2D>();
+		exghaustParticles = GetComponentInChildren<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
@@ -39,6 +42,7 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 			velocity.Normalize();
 		}
 		velocity *= speed;
+		exghaustParticles.enableEmission = velocity.sqrMagnitude >= .1f ? true : false;
 	}
 
 	/// <summary>
@@ -49,7 +53,7 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 		if (velocity.x != 0 || velocity.y != 0){
 			float angle;
 
-			if (velocity.x == 0){
+			/*if (velocity.x == 0){
 				if (velocity.y > 0){
 					angle = 0;
 				} else {
@@ -71,9 +75,12 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 				} else {
 					angle = 135;
 				}
-			}
+			}*/
+
+			angle = Mathf.Rad2Deg * Mathf.Atan2(velocity.y,velocity.x) - 90;
+
 			if (angle != transform.localEulerAngles.z){
-				Vector3 newAngles = new Vector3(0f,0f,Mathf.MoveTowardsAngle(transform.localEulerAngles.z,angle,7.5f));
+				Vector3 newAngles = new Vector3(0f,0f,Mathf.MoveTowardsAngle(transform.localEulerAngles.z,angle,rotationSpeed));
 				transform.localEulerAngles = newAngles;
 			}
 		}
