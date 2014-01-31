@@ -5,6 +5,7 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 
 	public float speed;
 	public float rotationSpeed;
+	public int playerNumber;
 
 	private Vector2 velocity;
 	private Rigidbody2D rb;
@@ -34,8 +35,15 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 	/// </summary>
 	/// <param name="dt">Dt.</param>
 	void UpdateInput(float dt){
-		float horizontal = Input.GetAxis("Horizontal");
-		float vertical = Input.GetAxis("Vertical");
+		float horizontal = 0;
+		float vertical = 0;
+		if (playerNumber == 1){
+			horizontal = Input.GetAxis("Horizontal");
+			vertical = Input.GetAxis("Vertical");
+		} else if (playerNumber == 2){
+			horizontal = Input.GetAxis ("Horizontal2");
+			vertical = Input.GetAxis("Vertical2");
+		}
 		velocity.x = horizontal;
 		velocity.y = vertical;
 		if (horizontal != 0 && vertical != 0){
