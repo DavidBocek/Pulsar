@@ -17,7 +17,7 @@ public class FollowTarget : MonoBehaviour {
 	private float dt;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		levelManager = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>();
 		if (target == null){

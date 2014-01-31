@@ -8,7 +8,7 @@ public class EnemyType : MonoBehaviour {
 
 	void OnPulseHit(int type){
 		if (type == this.type){
-			GameObject.FindWithTag("levelManager").GetComponent<LevelManager>().score += scoreValue;
+			GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().score += scoreValue;
 			//kill enemy, perhaps call for respawn again elsewhere?
 			Destroy(gameObject);
 		}
