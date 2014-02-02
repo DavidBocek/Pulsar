@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour {
 	public int numPlayers;
 	public float timeLeft;
 	public bool gameEnded = false;
+	public bool endWhenEnemiesAreDestroyed; public int enemiesRemainingWhenEnd;
 
 	public GameObject player1 {get; set;}
 	public GameObject player2 {get; set;}
@@ -23,11 +24,30 @@ public class LevelManager : MonoBehaviour {
 		if (numPlayers == 1) player2.SetActive(false);
 	}
 
+	void OnLevelWasLoaded(int levelIndex){
+		player1 = GameObject.FindWithTag("Player");
+		player2 = GameObject.FindWithTag("Player2");
+		if (numPlayers == 1) player2.SetActive(false);
+	}
+
 	void Update(){
+		//handing game over
 		if ((lives < 0 && !gameEnded) || (timeLeft <= 0 && !gameEnded)){
 			GameOver();
 		}
+		//handling level switches
+		if (endWhenEnemiesAreDestroyed){
+			if (GameObject.FindGameObjectsWithTag("Enemy").Length <= enemiesRemainingWhenEnd && !gameEnded){
+				NextLevel();
+			}
+		} /*else if (endOnTime){
+			if (timeLeft <= endTime){
+				NextLevel();
+			}
+		}*/
 
+
+		//player addition handling
 		if (Input.GetButtonDown("2Player")){
 			numPlayers = 2;
 		}

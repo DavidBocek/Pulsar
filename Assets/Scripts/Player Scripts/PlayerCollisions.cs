@@ -6,6 +6,8 @@ public class PlayerCollisions : MonoBehaviour {
 	public float respawnTime;
 	public Transform respawnTransform;
 	public int playerNumber;
+	public AudioClip deathSound;
+	public ParticleSystem deathEmitter; public int emitCount;
 
 	private bool invulnerable = false;
 	private float respawnTimer;
@@ -34,8 +36,13 @@ public class PlayerCollisions : MonoBehaviour {
 		if (invulnerable) return;
 		KillOnTouch kill = other.gameObject.GetComponent<KillOnTouch>();
 		if (kill){
-			kill.SendMessage("KillSuccessful",2.5f);
 			if (kill.killsPlayer){
+				if (kill.tag == "Enemy"){
+					GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+					foreach (GameObject e in enemies){
+						e.SendMessage("KillSuccessful",2.5f);
+					}
+				}
 				Kill();
 			}
 		}
@@ -49,13 +56,17 @@ public class PlayerCollisions : MonoBehaviour {
 
 	void Kill(){
 		//explosion sound play
+		AudioSource.PlayClipAtPoint(deathSound,transform.position,.75f);
 		//play death visual effect
+		deathEmitter.Emit(emitCount);
+
+		//respawn
 		isRespawning = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+		gameObject.GetComponent<PlayerOrthogonalMovement>().exghaustParticles.enableEmission = false;
 		gameObject.GetComponent<PlayerOrthogonalMovement>().enabled = false;
 		gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
-		gameObject.GetComponentInChildren<ParticleSystem>().enableEmission = false;
 		levelManager.lives -= 1;
 	}
 
@@ -74,8 +85,8 @@ public class PlayerCollisions : MonoBehaviour {
 		gameObject.GetComponent<MeshRenderer>().enabled = true;
 		gameObject.GetComponent<CircleCollider2D>().enabled = true;
 		gameObject.GetComponent<PlayerOrthogonalMovement>().enabled = true;
+		gameObject.GetComponent<PlayerOrthogonalMovement>().exghaustParticles.enableEmission = true;
 		gameObject.GetComponentInChildren<TrailRenderer>().enabled = true;
-		gameObject.GetComponentInChildren<ParticleSystem>().enableEmission = true;
 		GiveTemporaryInvulnerability(2.5f);
 	}
 

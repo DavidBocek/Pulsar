@@ -9,13 +9,18 @@ public class ParallaxScrollingElement : MonoBehaviour {
 	private Vector3 originalLocation;
 	
 	void Start(){
+		DontDestroyOnLoad(this);
 		originalLocation = new Vector3(transform.position.x,transform.position.y,transform.position.z);
 		Messenger.AddListener<Vector2>("parallaxUpdate", UpdateParallaxMovement);
 	}
 
+	void OnDestroy(){
+		Messenger.RemoveListener<Vector2>("parallaxUpdate",UpdateParallaxMovement);
+	}
+
 	void UpdateParallaxMovement(Vector2 cameraPosition){
 		Vector3 deltaPosition = new Vector3(cameraPosition.x*scrollAmountX,cameraPosition.y*scrollAmountY,0.0f);
-		Vector3 orig = new Vector3(-originalLocation.x,-originalLocation.y,originalLocation.z);
+		//Vector3 orig = new Vector3(-originalLocation.x,-originalLocation.y,originalLocation.z);
 		transform.position = originalLocation + deltaPosition;
 	}
 }

@@ -8,8 +8,9 @@ public class Planet : MonoBehaviour {
 	public int type;
 	public bool playing {get; set;}
 	public float pulseTime;
-	public AudioSource musicSource;
-	
+
+
+	private AudioSource musicSource;
 	private AudioSource pulseSound;
 	private float initialScale;
 	private int freq;
@@ -19,6 +20,7 @@ public class Planet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		musicSource = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
 		pulseSound = GetComponent<AudioSource>();
 		pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
 		initialScale = pulseObjectTrans.localScale.x;
@@ -85,14 +87,15 @@ public class Planet : MonoBehaviour {
 					yield return null;
 				}
 				currentSamples = 0;
+				lastSample = musicSource.timeSamples;
 				pulseSound.Play ();
 				StartCoroutine("PulseVisual",normalPulseRadius);
 				break;
 			case 1:
-				//play at the 3rd beat of every measure
-				//aka every 4 beats starting on the 3rd
+				//play at the 6th 8th note of every measure
+				//aka every 4 beats starting on the 2.5th
 				if (!completedInitialDelay){
-					while (currentSamples < 3 * samplesPerBeat){
+					while (currentSamples < 2.5 * samplesPerBeat){
 						deltaSamples = musicSource.timeSamples - lastSample;
 						if (deltaSamples < 0){
 							deltaSamples = musicSource.timeSamples;
@@ -117,6 +120,7 @@ public class Planet : MonoBehaviour {
 					yield return null;
 				}
 				currentSamples = 0;
+				lastSample = musicSource.timeSamples;
 				pulseSound.Play();
 				StartCoroutine("PulseVisual",normalPulseRadius);
 				break;

@@ -13,6 +13,7 @@ public class FollowTarget : MonoBehaviour {
 	private Vector2 randVec;
 	private LevelManager levelManager;
 	private bool ignoringPlayer;
+	private bool frozen = false;
 
 	private float dt;
 
@@ -29,10 +30,15 @@ public class FollowTarget : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnLevelWasLoaded(int level){
+		StartCoroutine("cFreezeForTime",3.5f);
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		dt = Time.smoothDeltaTime;
+		if (frozen) return;
 		if (ignoringPlayer){
 			vectorToTarget = randVec;
 			rb.velocity = randVec * speed;
@@ -45,6 +51,7 @@ public class FollowTarget : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+		if (frozen) return;
 		UpdateRotation(dt);
 	}
 
@@ -56,7 +63,7 @@ public class FollowTarget : MonoBehaviour {
 		if (velocity.x != 0 || velocity.y != 0){
 			float angle;
 
-			angle = Mathf.Rad2Deg * Mathf.Atan2(vectorToTarget.y,vectorToTarget.x) - 90;
+			angle = Mathf.Rad2Deg * Mathf.Atan2(vectorToTarget.y,vectorToTarget.x) + 180;
 
 			if (angle != transform.localEulerAngles.z){
 				Vector3 newAngles = new Vector3(0f,0f,Mathf.MoveTowardsAngle(transform.localEulerAngles.z,angle,rotationSpeed));
@@ -85,4 +92,9 @@ public class FollowTarget : MonoBehaviour {
 		}
 	}
 
+	IEnumerator cFreezeForTime(float time){
+		frozen = true;
+		yield return new WaitForSeconds(time);
+		frozen = false;
+	}
 }

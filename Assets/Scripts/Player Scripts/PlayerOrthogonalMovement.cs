@@ -6,27 +6,30 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 	public float speed;
 	public float rotationSpeed;
 	public int playerNumber;
+	public ParticleSystem exghaustParticles;
+
 
 	private Vector2 velocity;
 	private Rigidbody2D rb;
-	private ParticleSystem exghaustParticles;
+	private bool frozen = false;
 
 	private float dt;
 
 	// Use this for initialization
 	void Awake () {
 		rb = GetComponent<Rigidbody2D>();
-		exghaustParticles = GetComponentInChildren<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (frozen) return;
 		dt = Time.smoothDeltaTime;
 		UpdateInput(dt);
 		rb.velocity = velocity;
 	}
 
 	void FixedUpdate(){
+		if (frozen) return;
 		UpdateRotation(dt);
 	}
 
@@ -92,5 +95,15 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 				transform.localEulerAngles = newAngles;
 			}
 		}
+	}
+
+	void OnLevelWasLoaded(int level){
+		StartCoroutine("cFreezeForTime",3.5f);
+	}
+
+	IEnumerator cFreezeForTime(float time){
+		frozen = true;
+		yield return new WaitForSeconds(time);
+		frozen = false;
 	}
 }
