@@ -9,9 +9,14 @@ public class LevelManager : MonoBehaviour {
 	public float timeLeft;
 	public bool gameEnded = false;
 	public bool endWhenEnemiesAreDestroyed; public int enemiesRemainingWhenEnd;
+	public static int playersToStart;
 
 	public GameObject player1 {get; set;}
 	public GameObject player2 {get; set;}
+
+	private EnemySpawner enemySpawner;
+	private UpdateLivesAndTime livesText;
+	private bool startedOverwhelm;
 
 	// Use this for initialization
 	void Awake () {
@@ -21,24 +26,46 @@ public class LevelManager : MonoBehaviour {
 		}
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
-		if (numPlayers == 1) player2.SetActive(false);
 	}
 
 	void OnLevelWasLoaded(int levelIndex){
+		livesText = GameObject.Find("LivesText").GetComponent<UpdateLivesAndTime>();
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
-		if (numPlayers == 1) player2.SetActive(false);
+		if (levelIndex == 1){
+			if (playersToStart == 1){
+				player2.SetActive(false);
+				numPlayers = 1;
+			} else {
+				numPlayers = 2;
+			}
+		}
+		if (numPlayers == 1 && levelIndex != 1) player2.SetActive(false);
+		if (SaveInfo.currentLevel == 4) enemySpawner = GameObject.FindWithTag("Spawner").GetComponent<EnemySpawner>();
 	}
 
 	void Update(){
+		if (gameEnded) return;
 		//handing game over
-		if ((lives < 0 && !gameEnded) || (timeLeft <= 0 && !gameEnded)){
-			GameOver();
+		if (lives <= 0){
+			player1.GetComponent<PlayerCollisions>().KillPermanant();
+			if (numPlayers == 2) player2.GetComponent<PlayerCollisions>().KillPermanant();
+			gameEnded = true;
+			Time.timeScale = .2f;
+			StartCoroutine("cGameOverAfterDelay",1.5f);
+		} else if (timeLeft <= 0 && !startedOverwhelm){
+			lives = 1;
+			if (SaveInfo.currentLevel != 4){
+				OutOfTime();
+			} else {
+				OverwhelmPlayer();
+			}
 		}
 		//handling level switches
 		if (endWhenEnemiesAreDestroyed){
 			if (GameObject.FindGameObjectsWithTag("Enemy").Length <= enemiesRemainingWhenEnd && !gameEnded){
-				NextLevel();
+				if (SaveInfo.currentLevel != 4)
+					NextLevel();
 			}
 		} /*else if (endOnTime){
 			if (timeLeft <= endTime){
@@ -46,6 +73,15 @@ public class LevelManager : MonoBehaviour {
 			}
 		}*/
 
+		if (Debug.isDebugBuild){
+			if (Input.GetKeyDown (KeyCode.Q)){
+				NextLevel();
+			}
+			if (Input.GetKeyDown (KeyCode.Keypad8)){
+				Debug.Log ("wiping scores file");
+				LeaderboardInfo.WipeScoresFile();
+			}
+		}
 
 		//player addition handling
 		if (Input.GetButtonDown("2Player")){
@@ -68,19 +104,27 @@ public class LevelManager : MonoBehaviour {
 	void GameOver(){
 		LeaderboardInfo.AddScore(score);
 		Application.LoadLevel("gameover");
-		gameEnded = true;
 	}
 
-	/*public static Vector3 FindDecentLocationNearOtherPlayer(GameObject otherPlayer){
-		Vector2 newLoc = Vector2.zero;
-		GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+	void OverwhelmPlayer(){
+		enemySpawner.Overwhelm();
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy")){
+			obj.GetComponent<FollowTarget>().speed += 2;
+		}
+		startedOverwhelm = true;
+	}
 
-		float dist = Random.Range (1.5f,5.5f);
-		float angle = Random.Range (0,359);
+	void OutOfTime(){
+		startedOverwhelm = true;
+		livesText.OutOfTimeMessage();
+		player1.GetComponent<PlayerCollisions>().KillPermanant();
+		if (numPlayers == 2) player2.GetComponent<PlayerCollisions>().KillPermanant();
+		StartCoroutine("cGameOverAfterDelay",1.5f);
+	}
 
-		newLoc = 
-
-	}*/
+	IEnumerator cGameOverAfterDelay(float time){
+		yield return new WaitForSeconds(time);
+		GameOver();
+	}
 
 }

@@ -5,7 +5,6 @@ public class PlayerCollisions : MonoBehaviour {
 
 	public float respawnTime;
 	public Transform respawnTransform;
-	public int playerNumber;
 	public AudioClip deathSound;
 	public ParticleSystem deathEmitter; public int emitCount;
 
@@ -51,7 +50,7 @@ public class PlayerCollisions : MonoBehaviour {
 	void OnPulseHit(int type){
 		if (invulnerable) return;
 		//every pulsing planet kills the player (for now)
-		Kill();
+		//Kill();
 	}
 
 	void Kill(){
@@ -68,6 +67,20 @@ public class PlayerCollisions : MonoBehaviour {
 		gameObject.GetComponent<PlayerOrthogonalMovement>().enabled = false;
 		gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
 		levelManager.lives -= 1;
+	}
+
+	public void KillPermanant(){
+		//explosion sound play
+		AudioSource.PlayClipAtPoint(deathSound,transform.position,.75f);
+		//play death visual effect
+		deathEmitter.Emit (emitCount*3);
+
+		//no respawn
+		gameObject.GetComponent<MeshRenderer>().enabled = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+		gameObject.GetComponent<PlayerOrthogonalMovement>().exghaustParticles.enableEmission = false;
+		gameObject.GetComponent<PlayerOrthogonalMovement>().enabled = false;
+		gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
 	}
 
 	void Respawn(){

@@ -6,6 +6,7 @@ public class FollowTarget : MonoBehaviour {
 	public GameObject target;
 	public float speed;
 	public float rotationSpeed;
+	public float initialDelayBeforeMovement;
 
 	private Rigidbody2D rb;
 	private Vector2 vectorToTarget;
@@ -29,16 +30,22 @@ public class FollowTarget : MonoBehaviour {
 				else target = levelManager.player1;
 			}
 		}
+		if (levelManager.numPlayers == 2){
+			StartCoroutine("cConstantlyAdjustTarget");
+		}
 	}
 
 	void OnLevelWasLoaded(int level){
-		StartCoroutine("cFreezeForTime",3.5f);
+		StartCoroutine("cFreezeForTime",3.5f + initialDelayBeforeMovement);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		dt = Time.smoothDeltaTime;
 		if (frozen) return;
+		if (!target.GetComponent<MeshRenderer>().enabled && !ignoringPlayer){
+			StartCoroutine("cIgnoreDeadPlayer",2.5f);
+		}
 		if (ignoringPlayer){
 			vectorToTarget = randVec;
 			rb.velocity = randVec * speed;
@@ -77,7 +84,7 @@ public class FollowTarget : MonoBehaviour {
 	}
 
 	IEnumerator cIgnoreDeadPlayer(float time){
-		if (levelManager.numPlayers == 1){
+		if (levelManager.numPlayers == 1 || Random.Range (0,3) == 2){
 			randVec = (new Vector2(Random.Range(-1f,1f),Random.Range(-1f,1f))).normalized;
 			ignoringPlayer = true;
 			yield return new WaitForSeconds(time);
@@ -96,5 +103,22 @@ public class FollowTarget : MonoBehaviour {
 		frozen = true;
 		yield return new WaitForSeconds(time);
 		frozen = false;
+	}
+
+	IEnumerator cConstantlyAdjustTarget(){
+		while (gameObject.activeSelf){
+			yield return new WaitForSeconds(.25f);
+			GameObject newTarget = GetClosestPlayer();
+			if (target != newTarget){
+				target = newTarget;
+			}
+		}
+	}
+
+	GameObject GetClosestPlayer(){
+		float distTo1 = Vector3.Distance(transform.position, levelManager.player1.transform.position);
+		float distTo2 = Vector3.Distance(transform.position, levelManager.player2.transform.position);
+		GameObject res = distTo1 < distTo2 ? levelManager.player1 : levelManager.player2;
+		return res;
 	}
 }

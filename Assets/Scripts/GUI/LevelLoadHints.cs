@@ -14,10 +14,16 @@ public class LevelLoadHints : MonoBehaviour {
 		text = GetComponent<GUIText>();
 		switch (level){
 		case 1:
-			StartCoroutine("cShowHelpText","WELCOME TO PULSAR! KILL ENEMIES BY LURING THEM INTO PLANETS AT THE RIGHT TIME");
+			StartCoroutine("cShowHelpText","WELCOME TO PULSAR! KILL ENEMIES BY LURING THEM\n INTO PLANETS AT THE RIGHT BEAT");
 			break;
 		case 2:
-			StartCoroutine("cShowHelpText","ENEMIES CAN ONLY BE KILLED BY THE SAME COLOR PLANET");
+			StartCoroutine("cShowHelpText","ENEMIES CAN ONLY BE KILLED\n BY THE SAME COLOR PLANET");
+			break;
+		case 3:
+			StartCoroutine("cShowHelpText","THINGS MAY GET A LITTLE HECTIC!");
+			break;
+		case 4:
+			StartCoroutine("cShowHelpText","GOOD LUCK");
 			break;
 		default:
 			break;

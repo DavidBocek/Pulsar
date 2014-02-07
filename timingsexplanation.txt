@@ -1,0 +1,17 @@
+Here are the timings, complete with explanation and demos: 
+
+I don’t know how good your knowledge of music theory is, so I’m going to give the simple explanation and the longer explanation.
+
+Simple:
+
+“blueplanet.wav” goes on the first beat of every odd numbered measure. So, it’s at the beginning of measures 1, 3, 5, 7, etc
+“Yellowplanet.wav” goes on the 6th eighth note of every measure
+“redplanet.wav” goes on the 2nd beat of the first measure and the 4th beat of the second measure. It repeats every two measures.
+
+More complex:
+
+The thing you refer to as the “beat” is the “quarter note,” because there are four (hence quarter) beats in each measure. The bass drum plays on every quarter note most of the time. (The drum pattern is called “four on the floor”
+
+The “eighth” note is half of the duration of the quarter note. There are eight (hence eighth) of them in each measure. If the bass drum were on every eighth note, it would be “twice as fast,” so to speak.
+
+I’ve attached four measures of each sound to clear things up. I’ve included a clicking sound playing on each quarter note. "Sfx" is the same folder from today's earlier email.
