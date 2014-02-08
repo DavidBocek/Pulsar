@@ -15,7 +15,56 @@ Platform assembly: C:\Users\David\Documents\PulsarGit\testBuild1_Data\Managed\As
 Loading C:\Users\David\Documents\PulsarGit\testBuild1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\David\Documents\PulsarGit\testBuild1_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading C:\Users\David\Documents\PulsarGit\testBuild1_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.044 seconds
+- Completed reload, in  0.037 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1699)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1699)
+
+UnloadTime: 0.346379 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 442.
+Total: 0.869430 ms (FindLiveObjects: 0.027856 ms CreateObjectMapping: 0.017227 ms MarkObjects: 0.192433 ms  DeleteObjects: 0.007330 ms)
+
+UnloadTime: 2.647878 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 411.
+Total: 0.811884 ms (FindLiveObjects: 0.023458 ms CreateObjectMapping: 0.013928 ms MarkObjects: 0.175572 ms  DeleteObjects: 0.043618 ms)
+
+UnloadTime: 0.923678 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 792.
+Total: 1.367923 ms (FindLiveObjects: 0.065610 ms CreateObjectMapping: 0.024924 ms MarkObjects: 0.377168 ms  DeleteObjects: 0.052415 ms)
+
+UnloadTime: 0.947503 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 867.
+Total: 1.054532 ms (FindLiveObjects: 0.051682 ms CreateObjectMapping: 0.027123 ms MarkObjects: 0.236784 ms  DeleteObjects: 0.130854 ms)
+
+UnloadTime: 2.739879 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 113 unused Assets to reduce memory usage. Loaded Objects now: 224.
+Total: 1.949254 ms (FindLiveObjects: 0.028590 ms CreateObjectMapping: 0.036287 ms MarkObjects: 0.218457 ms  DeleteObjects: 0.786592 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at LevelManager.OnLevelWasLoaded (Int32 levelIndex) [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: needs reset, doing it
+FullResetD3DDevice
+ResetD3DDevice
+dev->Reset
+D3Dwindow device not lost anymore

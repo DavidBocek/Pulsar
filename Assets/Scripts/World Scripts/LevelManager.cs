@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour {
 	private EnemySpawner enemySpawner;
 	private UpdateLivesAndTime livesText;
 	private bool startedOverwhelm;
+	private AudioSource musicSource;
 
 	// Use this for initialization
 	void Awake () {
@@ -26,10 +27,11 @@ public class LevelManager : MonoBehaviour {
 		}
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
+		musicSource = GameObject.FindWithTag ("Music").GetComponent<AudioSource>();
 	}
 
 	void OnLevelWasLoaded(int levelIndex){
-		livesText = GameObject.Find("LivesText").GetComponent<UpdateLivesAndTime>();
+		livesText = GameObject.FindWithTag("LivesText").GetComponent<UpdateLivesAndTime>();
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
 		if (levelIndex == 1){
@@ -51,8 +53,10 @@ public class LevelManager : MonoBehaviour {
 			player1.GetComponent<PlayerCollisions>().KillPermanant();
 			if (numPlayers == 2) player2.GetComponent<PlayerCollisions>().KillPermanant();
 			gameEnded = true;
+			livesText.GameOver();
 			Time.timeScale = .2f;
-			StartCoroutine("cGameOverAfterDelay",1.5f);
+			StartCoroutine("cLerpMusicPitchDown");
+			StartCoroutine("cGameOverAfterDelay",.75f);
 		} else if (timeLeft <= 0 && !startedOverwhelm){
 			lives = 1;
 			if (SaveInfo.currentLevel != 4){
@@ -102,6 +106,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void GameOver(){
+		musicSource.volume = 0;
 		LeaderboardInfo.AddScore(score);
 		Application.LoadLevel("gameover");
 	}
@@ -119,7 +124,14 @@ public class LevelManager : MonoBehaviour {
 		livesText.OutOfTimeMessage();
 		player1.GetComponent<PlayerCollisions>().KillPermanant();
 		if (numPlayers == 2) player2.GetComponent<PlayerCollisions>().KillPermanant();
-		StartCoroutine("cGameOverAfterDelay",1.5f);
+		StartCoroutine("cGameOverAfterDelay",.75f);
+	}
+
+	IEnumerator cLerpMusicPitchDown(){
+		for (float i = 0; i < .75f; i += Time.deltaTime){
+			musicSource.pitch = Mathf.Lerp (1f,0f,i);
+			yield return null;
+		}
 	}
 
 	IEnumerator cGameOverAfterDelay(float time){

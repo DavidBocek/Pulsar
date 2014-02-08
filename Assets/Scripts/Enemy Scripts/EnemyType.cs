@@ -11,7 +11,10 @@ public class EnemyType : MonoBehaviour {
 
 	void OnPulseHit(int type){
 		if (type == this.type && !alreadyDied){
-			GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().score += scoreValue;
+			LevelManager levelManager = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>();
+			if (!levelManager.gameEnded){
+				levelManager.score += scoreValue;
+			}
 			AudioSource.PlayClipAtPoint(deathSounds[Random.Range(0,deathSounds.Length-1)],transform.position,1f);
 			deathEmitter.Emit(emitCount);
 			//kill enemy, perhaps call for respawn again elsewhere?

@@ -6,6 +6,7 @@ public class UpdateLivesAndTime : MonoBehaviour {
 	private LevelManager levelManager;
 	private GUIText text;
 	private bool outOfTimeBeforeScene4 = false;
+	private bool gameOver = false;
 
 	void Start(){
 		text = GetComponent<GUIText>();
@@ -14,6 +15,14 @@ public class UpdateLivesAndTime : MonoBehaviour {
 
 	void Update(){
 		levelManager.timeLeft -= Time.smoothDeltaTime;
+		if (gameOver){
+			text.text = "G A M E  O V E R";
+			text.color = new Color(1.0f,0f,0f);
+			text.fontSize = 45;
+			Vector3 newPos = new Vector3(.5f,text.transform.position.y - .0025f,0f);
+			text.transform.position = newPos;
+			return;
+		}
 		if (levelManager.timeLeft > 0){
 			text.text = "LIVES :  "+(int)levelManager.lives;
 		} else if (!outOfTimeBeforeScene4){
@@ -29,5 +38,9 @@ public class UpdateLivesAndTime : MonoBehaviour {
 
 	public void OutOfTimeMessage(){
 		outOfTimeBeforeScene4 = true;
+	}
+
+	public void GameOver(){
+		gameOver = true;
 	}
 }
