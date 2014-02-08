@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (GameObject.FindGameObjectsWithTag("Enemy").Length > maxEnemies && !overwhelming) return;
 		else if (GameObject.FindGameObjectsWithTag("Enemy").Length > maxEnemies + 40) return;
 		int wall = Random.Range(0,4);
-		int type = Random.Range(0,3);
+		int type = Random.Range(0,4);
 		GameObject newEnemy = new GameObject();
 		Vector3 newPos = Vector3.zero;
 
@@ -48,6 +48,8 @@ public class EnemySpawner : MonoBehaviour {
 			newEnemy = (GameObject)Instantiate(Resources.Load("BasicEnemyYellow"));
 		} else if (type == 2){
 			newEnemy = (GameObject)Instantiate(Resources.Load("BasicEnemyRed"));
+		} else if (type == 3){
+			newEnemy = (GameObject)Instantiate(Resources.Load("BasicEnemyGreen"));
 		}
 
 		switch (wall){

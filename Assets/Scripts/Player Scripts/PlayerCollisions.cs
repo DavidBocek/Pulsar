@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerCollisions : MonoBehaviour {
 
@@ -7,11 +8,15 @@ public class PlayerCollisions : MonoBehaviour {
 	public Transform respawnTransform;
 	public AudioClip deathSound;
 	public ParticleSystem deathEmitter; public int emitCount;
+	public AudioClip respawnClip;
+	public AudioClip pickUpClip;
+	public AudioClip putDownClip;
 
 	private bool invulnerable = false;
 	private float respawnTimer;
 	private bool isRespawning = false;
 	private LevelManager levelManager;
+	private int mineCounter = 0;
 
 	void Awake(){
 		respawnTimer = respawnTime;
@@ -19,6 +24,9 @@ public class PlayerCollisions : MonoBehaviour {
 	}
 
 	void Update(){
+		if (Input.GetButtonDown("DropMine")){
+			DropMine();
+		}
 		if (isRespawning){
 			if (respawnTimer <= 0){
 				isRespawning = false;
@@ -31,6 +39,7 @@ public class PlayerCollisions : MonoBehaviour {
 		}
 	}
 
+	public List<GameObject> mineList = new List<GameObject>();
 	void OnCollisionEnter2D(Collision2D other){
 		if (invulnerable) return;
 		KillOnTouch kill = other.gameObject.GetComponent<KillOnTouch>();
@@ -45,12 +54,29 @@ public class PlayerCollisions : MonoBehaviour {
 				Kill();
 			}
 		}
+
 	}
 
 	void OnPulseHit(int type){
 		if (invulnerable) return;
 		//every pulsing planet kills the player (for now)
 		//Kill();
+	}
+
+	public void PickUpMine(){
+		AudioSource.PlayClipAtPoint(pickUpClip,transform.position);
+		mineCounter += 1;
+	}
+
+	void DropMine(){
+		if (mineCounter > 0){
+			AudioSource.PlayClipAtPoint(putDownClip,transform.position);
+			GameObject mine = mineList[mineCounter-1];
+			mineList.RemoveAt(mineCounter-1);
+			mine.transform.position = transform.position;
+			mine.GetComponent<MinePickup>().Drop();
+			mineCounter --;
+		}
 	}
 
 	void Kill(){
@@ -85,7 +111,7 @@ public class PlayerCollisions : MonoBehaviour {
 
 	void Respawn(){
 		//respawn sound play
-		//play respawn visual effect
+		AudioSource.PlayClipAtPoint(respawnClip,transform.position);
 		if (levelManager.numPlayers == 1){
 			transform.position = respawnTransform.position;
 		} else {

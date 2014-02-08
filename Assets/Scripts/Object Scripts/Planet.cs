@@ -104,6 +104,16 @@ public class Planet : MonoBehaviour {
 				}
 			}
 			break;
+		case 3:
+			soundTimingsInSamples = new int[372];
+			for (int i=0; i<372; i++){
+				if (i%2 == 0){
+					soundTimingsInSamples[i] = (int) ((i * 4 + 3.5) * samplesPerBeat);
+				} else {
+					soundTimingsInSamples[i] = (int) ((i * 4) * samplesPerBeat);
+				}
+			}
+			break;
 		}
 	}
 

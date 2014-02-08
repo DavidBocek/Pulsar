@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour {
 	public bool gameEnded = false;
 	public bool endWhenEnemiesAreDestroyed; public int enemiesRemainingWhenEnd;
 	public static int playersToStart;
+	public AudioClip nextLevelClip;
+	public AudioClip startSound;
 
 	public GameObject player1 {get; set;}
 	public GameObject player2 {get; set;}
@@ -18,6 +20,8 @@ public class LevelManager : MonoBehaviour {
 	private UpdateLivesAndTime livesText;
 	private bool startedOverwhelm;
 	private AudioSource musicSource;
+	private AudioSource sfxSource;
+	private bool transitioning = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,9 +32,13 @@ public class LevelManager : MonoBehaviour {
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
 		musicSource = GameObject.FindWithTag ("Music").GetComponent<AudioSource>();
+		sfxSource = GameObject.FindWithTag("SFXSource").GetComponent<AudioSource>();
+		StartCoroutine("cFadeInMusic");
+		AudioSource.PlayClipAtPoint(startSound, player1.transform.position);
 	}
 
 	void OnLevelWasLoaded(int levelIndex){
+		if (levelIndex == 5) return;
 		livesText = GameObject.FindWithTag("LivesText").GetComponent<UpdateLivesAndTime>();
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
@@ -45,7 +53,7 @@ public class LevelManager : MonoBehaviour {
 		if (numPlayers == 1 && levelIndex != 1) player2.SetActive(false);
 		if (SaveInfo.currentLevel == 4) enemySpawner = GameObject.FindWithTag("Spawner").GetComponent<EnemySpawner>();
 	}
-
+	
 	void Update(){
 		if (gameEnded) return;
 		//handing game over
@@ -68,8 +76,9 @@ public class LevelManager : MonoBehaviour {
 		//handling level switches
 		if (endWhenEnemiesAreDestroyed){
 			if (GameObject.FindGameObjectsWithTag("Enemy").Length <= enemiesRemainingWhenEnd && !gameEnded){
-				if (SaveInfo.currentLevel != 4)
-					NextLevel();
+				if (SaveInfo.currentLevel != 4 && !transitioning){
+					StartCoroutine("cFadeToNextLevel");
+				}
 			}
 		} /*else if (endOnTime){
 			if (timeLeft <= endTime){
@@ -127,6 +136,19 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine("cGameOverAfterDelay",.75f);
 	}
 
+	IEnumerator cFadeToNextLevel(){
+		transitioning = true;
+		sfxSource.clip = nextLevelClip;
+		sfxSource.Play();
+		for (float i = 0; i < 1.5f; i += Time.deltaTime){
+			Camera.main.gameObject.GetComponent<GlowEffect>().glowIntensity = Mathf.Lerp (1.2f,2.0f,i/1.5f);
+			yield return null;
+		}
+		transitioning = false;
+		Camera.main.gameObject.GetComponent<GlowEffect>().glowIntensity = 1.2f;
+		NextLevel();
+	}
+
 	IEnumerator cLerpMusicPitchDown(){
 		for (float i = 0; i < .75f; i += Time.deltaTime){
 			musicSource.pitch = Mathf.Lerp (1f,0f,i);
@@ -137,6 +159,14 @@ public class LevelManager : MonoBehaviour {
 	IEnumerator cGameOverAfterDelay(float time){
 		yield return new WaitForSeconds(time);
 		GameOver();
+	}
+
+	IEnumerator cFadeInMusic(){
+		musicSource.volume = 0;
+		for (float i = 0; i < .8f; i += Time.deltaTime){
+			musicSource.volume = Mathf.Lerp(0f,1f,i/.8f);
+			yield return null;
+		}
 	}
 
 }
