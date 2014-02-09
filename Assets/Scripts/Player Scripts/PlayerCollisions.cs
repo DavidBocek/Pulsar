@@ -11,12 +11,13 @@ public class PlayerCollisions : MonoBehaviour {
 	public AudioClip respawnClip;
 	public AudioClip pickUpClip;
 	public AudioClip putDownClip;
+	public List<GameObject> mineList = new List<GameObject>();
 
 	private bool invulnerable = false;
 	private float respawnTimer;
 	private bool isRespawning = false;
 	private LevelManager levelManager;
-	private int mineCounter = 0;
+	public int mineCounter = 0;
 
 	void Awake(){
 		respawnTimer = respawnTime;
@@ -24,7 +25,9 @@ public class PlayerCollisions : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetButtonDown("DropMine")){
+		if (Input.GetButtonDown("DropMine") && levelManager.player1 == gameObject){
+			DropMine();
+		} else if (Input.GetButtonDown("DropMine2") && levelManager.player2 == gameObject){
 			DropMine();
 		}
 		if (isRespawning){
@@ -39,7 +42,7 @@ public class PlayerCollisions : MonoBehaviour {
 		}
 	}
 
-	public List<GameObject> mineList = new List<GameObject>();
+
 	void OnCollisionEnter2D(Collision2D other){
 		if (invulnerable) return;
 		KillOnTouch kill = other.gameObject.GetComponent<KillOnTouch>();
@@ -54,7 +57,11 @@ public class PlayerCollisions : MonoBehaviour {
 				Kill();
 			}
 		}
-
+		MinePickup mine = other.gameObject.GetComponent<MinePickup>();
+		if (mine && !other.gameObject.GetComponentInChildren<PulseDamage>().delaying && mineCounter < 3){
+			mineList.Add(mine.PickUp());
+			PickUpMine();
+		}
 	}
 
 	void OnPulseHit(int type){
@@ -73,7 +80,8 @@ public class PlayerCollisions : MonoBehaviour {
 			AudioSource.PlayClipAtPoint(putDownClip,transform.position);
 			GameObject mine = mineList[mineCounter-1];
 			mineList.RemoveAt(mineCounter-1);
-			mine.transform.position = transform.position;
+			Vector2 vel = gameObject.GetComponent<PlayerOrthogonalMovement>().GetVelocity();
+			mine.transform.position = transform.position - new Vector3(vel.x,vel.y,0)*.15f;
 			mine.GetComponent<MinePickup>().Drop();
 			mineCounter --;
 		}
@@ -111,7 +119,7 @@ public class PlayerCollisions : MonoBehaviour {
 
 	void Respawn(){
 		//respawn sound play
-		AudioSource.PlayClipAtPoint(respawnClip,transform.position);
+		//AudioSource.PlayClipAtPoint(respawnClip,transform.position);
 		if (levelManager.numPlayers == 1){
 			transform.position = respawnTransform.position;
 		} else {
@@ -133,7 +141,6 @@ public class PlayerCollisions : MonoBehaviour {
 		StartCoroutine("cInvuln",time);
 		StartCoroutine("cBlink",time);
 	}
-
 
 	IEnumerator cInvuln(float time){
 		invulnerable = true;

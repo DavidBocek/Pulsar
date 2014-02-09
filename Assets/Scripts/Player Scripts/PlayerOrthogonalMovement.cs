@@ -101,6 +101,10 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 		StartCoroutine("cFreezeForTime",3.5f);
 	}
 
+	public Vector2 GetVelocity(){
+		return velocity;
+	}
+
 	IEnumerator cFreezeForTime(float time){
 		frozen = true;
 		yield return new WaitForSeconds(time);

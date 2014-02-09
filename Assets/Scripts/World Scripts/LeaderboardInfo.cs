@@ -6,6 +6,7 @@ public static class LeaderboardInfo {
 
 	public static bool initialized = false;
 	public static List<int> leaderboardScores;
+	public static int mostRecentlyInputScoreIndex = -1;
 
 	public static void Initialize(){
 		leaderboardScores = new List<int>();
@@ -20,6 +21,7 @@ public static class LeaderboardInfo {
 			leaderboardScores.RemoveAt(0);
 			leaderboardScores.Add(score);
 			leaderboardScores.Sort();
+			mostRecentlyInputScoreIndex = leaderboardScores.IndexOf(score);
 			SaveScoresFile();
 		}
 	}

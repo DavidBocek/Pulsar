@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour {
 	private AudioSource musicSource;
 	private AudioSource sfxSource;
 	private bool transitioning = false;
+	private GUIText p1Mines;
+	private GUIText p2Mines;
 
 	// Use this for initialization
 	void Awake () {
@@ -31,6 +33,8 @@ public class LevelManager : MonoBehaviour {
 		}
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
+		p1Mines = GameObject.FindWithTag("MineText").GetComponent<GUIText>();
+		p2Mines = GameObject.FindWithTag("MineText2").GetComponent<GUIText>();
 		musicSource = GameObject.FindWithTag ("Music").GetComponent<AudioSource>();
 		sfxSource = GameObject.FindWithTag("SFXSource").GetComponent<AudioSource>();
 		StartCoroutine("cFadeInMusic");
@@ -42,6 +46,8 @@ public class LevelManager : MonoBehaviour {
 		livesText = GameObject.FindWithTag("LivesText").GetComponent<UpdateLivesAndTime>();
 		player1 = GameObject.FindWithTag("Player");
 		player2 = GameObject.FindWithTag("Player2");
+		p1Mines = GameObject.FindWithTag("MineText").GetComponent<GUIText>();
+		p2Mines = GameObject.FindWithTag("MineText2").GetComponent<GUIText>();
 		if (levelIndex == 1){
 			if (playersToStart == 1){
 				player2.SetActive(false);
@@ -106,6 +112,21 @@ public class LevelManager : MonoBehaviour {
 			player2.SetActive(true);
 			player2.transform.position = player1.transform.position;
 			player2.GetComponent<PlayerCollisions>().GiveTemporaryInvulnerability(3.5f);
+		}
+
+		//update Mine gui
+		if (player1.activeSelf){
+			if (player1.GetComponent<PlayerCollisions>().mineList.Count == 3){
+				p1Mines.text = "P1 MINES : "+player1.GetComponent<PlayerCollisions>().mineList.Count+" (MAX)";
+			} else{
+				p1Mines.text = "P1 MINES : "+player1.GetComponent<PlayerCollisions>().mineList.Count;
+			}
+		} if (player2.activeSelf){
+			if (player2.GetComponent<PlayerCollisions>().mineList.Count == 3){
+				p2Mines.text = "P1 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count+" (MAX)";
+			} else{
+				p2Mines.text = "P1 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count;
+			}
 		}
 	}
 

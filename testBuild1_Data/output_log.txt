@@ -23,48 +23,87 @@ The referenced script on this Behaviour is missing!
  
 (Filename:  Line: 1699)
 
-The referenced script on this Behaviour is missing!
- 
-(Filename:  Line: 1699)
-
-UnloadTime: 0.346379 ms
+UnloadTime: 0.258410 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 442.
-Total: 0.869430 ms (FindLiveObjects: 0.027856 ms CreateObjectMapping: 0.017227 ms MarkObjects: 0.192433 ms  DeleteObjects: 0.007330 ms)
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 460.
+Total: 6.269284 ms (FindLiveObjects: 0.013928 ms CreateObjectMapping: 0.007697 ms MarkObjects: 0.110328 ms  DeleteObjects: 5.850696 ms)
 
-UnloadTime: 2.647878 ms
+UnloadTime: 1.442697 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 411.
-Total: 0.811884 ms (FindLiveObjects: 0.023458 ms CreateObjectMapping: 0.013928 ms MarkObjects: 0.175572 ms  DeleteObjects: 0.043618 ms)
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 424.
+Total: 0.542844 ms (FindLiveObjects: 0.012095 ms CreateObjectMapping: 0.008063 ms MarkObjects: 0.123890 ms  DeleteObjects: 0.130854 ms)
 
-UnloadTime: 0.923678 ms
+UnloadTime: 0.376435 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 792.
-Total: 1.367923 ms (FindLiveObjects: 0.065610 ms CreateObjectMapping: 0.024924 ms MarkObjects: 0.377168 ms  DeleteObjects: 0.052415 ms)
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 966.
+Total: 0.480532 ms (FindLiveObjects: 0.025657 ms CreateObjectMapping: 0.011729 ms MarkObjects: 0.157978 ms  DeleteObjects: 0.020892 ms)
 
-UnloadTime: 0.947503 ms
+UnloadTime: 0.536979 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 26 unused Assets to reduce memory usage. Loaded Objects now: 867.
-Total: 1.054532 ms (FindLiveObjects: 0.051682 ms CreateObjectMapping: 0.027123 ms MarkObjects: 0.236784 ms  DeleteObjects: 0.130854 ms)
+Unloading 38 unused Assets to reduce memory usage. Loaded Objects now: 880.
+Total: 0.522318 ms (FindLiveObjects: 0.024924 ms CreateObjectMapping: 0.012828 ms MarkObjects: 0.128655 ms  DeleteObjects: 0.098232 ms)
 
-UnloadTime: 2.739879 ms
+UnloadTime: 1.157163 ms
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 113 unused Assets to reduce memory usage. Loaded Objects now: 224.
-Total: 1.949254 ms (FindLiveObjects: 0.028590 ms CreateObjectMapping: 0.036287 ms MarkObjects: 0.218457 ms  DeleteObjects: 0.786592 ms)
+Unloading 129 unused Assets to reduce memory usage. Loaded Objects now: 258.
+Total: 0.755070 ms (FindLiveObjects: 0.010629 ms CreateObjectMapping: 0.015028 ms MarkObjects: 0.098599 ms  DeleteObjects: 0.349311 ms)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at LevelManager.OnLevelWasLoaded (Int32 levelIndex) [0x00000] in <filename unknown>:0 
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+Skipped rendering frame because GfxDevice is in invalid state (device lost)
+ 
+(Filename:  Line: 1539)
+
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+Skipped rendering frame because GfxDevice is in invalid state (device lost)
+ 
+(Filename:  Line: 1539)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
  
 (Filename:  Line: -1)
 
-HandleD3DDeviceLost
-  HandleD3DDeviceLost: needs reset, doing it
-FullResetD3DDevice
-ResetD3DDevice
-dev->Reset
-D3Dwindow device not lost anymore
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+

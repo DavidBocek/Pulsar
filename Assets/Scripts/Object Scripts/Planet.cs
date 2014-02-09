@@ -8,7 +8,8 @@ public class Planet : MonoBehaviour {
 	public int type;
 	public bool playing {get; set;}
 	public float pulseTime;
-
+	public bool mine;
+	public bool pickedup;
 
 	private AudioSource musicSource;
 	private AudioSource pulseSound;
@@ -17,6 +18,7 @@ public class Planet : MonoBehaviour {
 	private int samplesPerBeat;
 	private int[] soundTimingsInSamples;
 
+
 	private float dt;
 
 	// Use this for initialization
@@ -24,7 +26,8 @@ public class Planet : MonoBehaviour {
 		musicSource = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
 		pulseSound = GetComponent<AudioSource>();
 		pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-		pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
+		if (!mine)
+			pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
 		initialScale = pulseObjectTrans.localScale.x;
 		freq = audio.clip.frequency;
 		samplesPerBeat = freq/3; //180 bpm => 3 beats per second
@@ -45,8 +48,10 @@ public class Planet : MonoBehaviour {
 	IEnumerator PulseVisual(float radius){
 		float newScale;
 		Color c = pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().material.color;
-		pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
-		pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = true;
+		if (!pickedup){
+			pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+			pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = true;
+		}
 		for (float t = 0; t<=1f; t += dt/pulseTime){
 			//for right now, lerp between 0 and 1 alpha
 			c.a = t;
@@ -67,8 +72,10 @@ public class Planet : MonoBehaviour {
 			t -= dt/pulseTime;
 			yield return null;
 		}
-		pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-		pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
+		if (!pickedup){
+			pulseObjectTrans.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+			pulseObjectTrans.gameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
+		}
 	}
 
 
@@ -129,7 +136,8 @@ public class Planet : MonoBehaviour {
 				yield return null;
 			}
 			playNumber ++;
-			pulseSound.Play();
+			if (pulseSound.enabled)
+				pulseSound.Play();
 			StartCoroutine("PulseVisual",normalPulseRadius);
 		}
 	}
