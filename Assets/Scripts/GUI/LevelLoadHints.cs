@@ -38,7 +38,7 @@ public class LevelLoadHints : MonoBehaviour {
 
 	IEnumerator cShowHelpText(string textToShow){
 		text.text = textToShow;
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(4f);
 		text.text = "";
 	}
 

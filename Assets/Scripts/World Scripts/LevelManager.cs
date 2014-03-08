@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour {
 			}
 		}*/
 
-		if (Debug.isDebugBuild){
+		/*if (Debug.isDebugBuild){
 			if (Input.GetKeyDown (KeyCode.Q)){
 				NextLevel();
 			}
@@ -100,7 +100,7 @@ public class LevelManager : MonoBehaviour {
 				Debug.Log ("wiping scores file");
 				LeaderboardInfo.WipeScoresFile();
 			}
-		}
+		}*/
 
 		//player addition handling
 		if (Input.GetButtonDown("2Player")){
@@ -123,9 +123,9 @@ public class LevelManager : MonoBehaviour {
 			}
 		} if (player2.activeSelf){
 			if (player2.GetComponent<PlayerCollisions>().mineList.Count == 3){
-				p2Mines.text = "P1 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count+" (MAX)";
+				p2Mines.text = "P2 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count+" (MAX)";
 			} else{
-				p2Mines.text = "P1 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count;
+				p2Mines.text = "P2 MINES : "+player2.GetComponent<PlayerCollisions>().mineList.Count;
 			}
 		}
 	}
@@ -138,6 +138,7 @@ public class LevelManager : MonoBehaviour {
 	void GameOver(){
 		musicSource.volume = 0;
 		LeaderboardInfo.AddScore(score);
+		Time.timeScale = 1f;
 		Application.LoadLevel("gameover");
 	}
 

@@ -36,7 +36,7 @@ public class FollowTarget : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level){
-		StartCoroutine("cFreezeForTime",3.5f + initialDelayBeforeMovement);
+		StartCoroutine("cFreezeForTime",4.5f + initialDelayBeforeMovement);
 	}
 	
 	// Update is called once per frame
@@ -44,7 +44,7 @@ public class FollowTarget : MonoBehaviour {
 		dt = Time.smoothDeltaTime;
 		if (frozen) return;
 		if (!target.GetComponent<MeshRenderer>().enabled && !ignoringPlayer){
-			StartCoroutine("cIgnoreDeadPlayer",2.5f);
+			StartCoroutine("cIgnoreDeadPlayer",1.75f);
 		}
 		if (ignoringPlayer){
 			vectorToTarget = randVec;

@@ -52,6 +52,7 @@ public class LeaderboardDisplay : MonoBehaviour {
 			GameObject.Destroy(GameObject.FindWithTag("Music"));
 			GameObject.Destroy(GameObject.FindWithTag("ReadySetGo"));
 			GameObject.Destroy(GameObject.FindWithTag("SFXSource"));
+			Time.timeScale = 1;
 			Application.LoadLevel(0);
 		}
 	}

@@ -1,0 +1,55 @@
+Initialize engine version: 4.3.0f4 (e01000627d60)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvd3dum.dll 9.18.13.717]
+    Renderer: NVIDIA GeForce GTX 675M 
+    Vendor:   NVIDIA
+    VRAM:     1999 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\David\Documents\PulsarGit\Pulsar_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+- Completed reload, in  0.044 seconds
+desktop: 1680x1050 59Hz; virtual: 1680x1050 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1699)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1699)
+
+UnloadTime: 0.397694 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 479.
+Total: 1.557058 ms (FindLiveObjects: 0.028223 ms CreateObjectMapping: 0.015394 ms MarkObjects: 0.191333 ms  DeleteObjects: 0.336849 ms)
+
+UnloadTime: 2.620387 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 446.
+Total: 1.201881 ms (FindLiveObjects: 0.027856 ms CreateObjectMapping: 0.015761 ms MarkObjects: 0.194265 ms  DeleteObjects: 0.048016 ms)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+ListenerException: Attempting to remove listener for type "parallaxUpdate" but Messenger doesn't know about this event type.
+  at Messenger.OnListenerRemoving (System.String eventType, System.Delegate listenerBeingRemoved) [0x00000] in <filename unknown>:0 
+  at Messenger.RemoveListener[Vector2] (System.String eventType, .Callback`1 handler) [0x00000] in <filename unknown>:0 
+  at ParallaxScrollingElement.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+

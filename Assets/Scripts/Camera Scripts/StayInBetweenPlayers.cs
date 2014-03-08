@@ -24,10 +24,10 @@ public class StayInBetweenPlayers : MonoBehaviour {
 			upperRightPoint.y = Mathf.Max(levelManager.player1.transform.position.y,levelManager.player2.transform.position.y);
 			float distX = Mathf.Abs(upperRightPoint.x-lowerLeftPoint.x); float distY = Mathf.Abs(upperRightPoint.y-lowerLeftPoint.y);
 			float maxDist = Mathf.Max(distX,distY);
-			if (maxDist == distY && maxDist > 16f){
-				Camera.main.orthographicSize = maxDist/2f;
-			} else if (maxDist == distX && maxDist > 64f/3f){
-				Camera.main.orthographicSize = maxDist*3/8f;
+			if (maxDist == distY && maxDist > 10f){
+				Camera.main.orthographicSize = maxDist/2f+3f;
+			} else if (maxDist == distX && maxDist > 40f/3f){
+				Camera.main.orthographicSize = maxDist*3/8f+3f;
 			} else {
 				Camera.main.orthographicSize = 8;
 			}

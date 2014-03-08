@@ -98,7 +98,7 @@ public class PlayerOrthogonalMovement : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level){
-		StartCoroutine("cFreezeForTime",3.5f);
+		StartCoroutine("cFreezeForTime",4.5f);
 	}
 
 	public Vector2 GetVelocity(){
