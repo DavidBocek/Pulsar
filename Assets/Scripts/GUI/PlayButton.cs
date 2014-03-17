@@ -18,6 +18,7 @@ public class PlayButton : MonoBehaviour {
 	}
 
 	void Update(){
+		Screen.showCursor = false;
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
 			LevelManager.playersToStart = 1;
 			Application.LoadLevel("scene1");
