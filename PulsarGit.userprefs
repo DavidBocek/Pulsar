@@ -1,10 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\ProjectAurora\Assets\Scripts\AI\GOAP\SquadManager\AurSquadManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\FPHorrorZalgo\Assets\6by7\ProBuilder\Install\Editor\QuickStart.cs">
     <Files>
-      <File FileName="..\ProjectAurora\Assets\Scripts\AI\GOAP\SquadManager\AurSquadManager.cs" Line="637" Column="120" />
-      <File FileName="..\ProjectAurora\Assets\Scripts\AI\GOAP\AurActor.cs" Line="1" Column="1" />
-      <File FileName="..\ProjectAurora\Assets\Scripts\AI\GOAP\Abstracts.cs" Line="141" Column="64" />
+      <File FileName="..\FPHorrorZalgo\Assets\6by7\ProBuilder\Install\Editor\QuickStart.cs" Line="457" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

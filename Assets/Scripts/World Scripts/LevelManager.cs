@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
 	public int numPlayers;
 	public float timeLeft;
 	public bool gameEnded = false;
-	public bool endWhenEnemiesAreDestroyed; public int enemiesRemainingWhenEnd;
+	public bool endWhenEnemiesAreDestroyed = true; public int enemiesRemainingWhenEnd = 0;
 	public static int playersToStart;
 	public AudioClip nextLevelClip;
 	public AudioClip startSound;

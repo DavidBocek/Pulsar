@@ -24,7 +24,7 @@ public class LevelLoadHints : MonoBehaviour {
 			StartCoroutine("cReadySetGo");
 			break;
 		case 3:
-			StartCoroutine("cShowHelpText","PICKUP AND DROP GREEN MINES");
+			StartCoroutine("cShowHelpText","PICKUP AND DROP GREEN MINES\n USE THE BLUE BUTTONS");
 			StartCoroutine("cReadySetGo");
 			break;
 		case 4:
